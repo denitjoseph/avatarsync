@@ -14,6 +14,7 @@ Using a standard RGB webcam (without specialized depth sensors or wearable hardw
 - [Supported 3D Model Formats](#supported-3d-model-formats)
 - [Prerequisites](#prerequisites)
 - [Installation & Quick Start](#installation--quick-start)
+- [Running with Docker](#running-with-docker)
 - [Usage Guide](#usage-guide)
   - [Webcam & Tracking Setup](#webcam--tracking-setup)
   - [Loading Custom Avatars](#loading-custom-avatars)
@@ -111,6 +112,32 @@ Using a standard RGB webcam (without specialized depth sensors or wearable hardw
    ```bash
    npm start
    ```
+
+---
+
+## Running with Docker
+
+You can containerize and run AvatarSync using Docker:
+
+### 1. Build the Docker Image
+```bash
+docker build -t avatarsync .
+```
+
+### 2. Run Headlessly (Virtual Framebuffer / Server Mode)
+```bash
+docker run -it --rm -p 8080:8080 -p 8443:8443 avatarsync
+```
+
+### 3. Run with GUI & Webcam (Linux Host)
+```bash
+docker run -it --rm \
+  -e DISPLAY=$DISPLAY \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  --device /dev/video0:/dev/video0 \
+  -p 8080:8080 -p 8443:8443 \
+  avatarsync
+```
 
 ---
 
